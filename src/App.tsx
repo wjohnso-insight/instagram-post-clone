@@ -1,3 +1,7 @@
+//! <App>
+//TODO: [] Refactor `targetUser` view from inline to <UserPosts> 
+//* <UserPosts> should get `targetUser` & targetUsers' `posts` from global state
+
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
