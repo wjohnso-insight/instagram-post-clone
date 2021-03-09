@@ -1,10 +1,10 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
-import { useSelector }  from 'react-redux'
+import { useAppSelector, useAppDispatch } from './app/hooks'
 import { RootState } from './app/store'
-import User from './features/users/user'
 
+import { targetUserSet } from './features/users/userSlice'
 
 const AppWrapper = styled.div`
   //* iPhone 11 Max Aspect Ratio
@@ -31,12 +31,16 @@ const UserText = styled.button`
 
 export default function App(): ReactElement {
   const [ targetUser, setTargetUser ] = useState<String | undefined>();
-  const users : User[]  = useSelector((state: RootState) => state.users)
 
-  const usersList = users.map(user => (
+  //* Typed Hooks
+  const users = useAppSelector((state: RootState) => state.users); //* Typeof User[] is inferred by TS
+  const dispatch = useAppDispatch();
+
+  const usersList = users.users.map(user => (
     <UserText 
       key={user.id}
-      onClick={() => setTargetUser(user.userName)}
+      // onClick={() => setTargetUser(user.userName)}
+      onClick={() => dispatch(targetUserSet(user))}
       >{user.userName}</UserText>
   ))
   
@@ -59,3 +63,5 @@ export default function App(): ReactElement {
   }
   
 }
+
+
