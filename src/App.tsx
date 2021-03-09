@@ -1,10 +1,10 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from './app/hooks'
 import { RootState } from './app/store'
 
-import { targetUserSet } from './features/users/userSlice'
+import { targetUserSet, selectTargetUser } from './features/users/userSlice'
 
 const AppWrapper = styled.div`
   //* iPhone 11 Max Aspect Ratio
@@ -28,12 +28,15 @@ const UserText = styled.button`
     cursor: pointer;
   }
 `
+//TODO - [√] Update conditional render based on selectTargetUser Reusable Selector Function
+//TODO - [√] Refactor `BackButton` to dispatch `setTargetUser` to undefined 
 
 export default function App(): ReactElement {
-  const [ targetUser, setTargetUser ] = useState<String | undefined>();
+  // const [ targetUser, setTargetUser ] = useState<String | undefined>();
 
   //* Typed Hooks
   const users = useAppSelector((state: RootState) => state.users); //* Typeof User[] is inferred by TS
+  const targetUser = useAppSelector(selectTargetUser);
   const dispatch = useAppDispatch();
 
   const usersList = users.users.map(user => (
@@ -56,8 +59,8 @@ export default function App(): ReactElement {
   }else{
     return(
       <AppWrapper>
-        {targetUser}
-        <button onClick={() => setTargetUser(undefined)}>Back</button>
+        {targetUser.userName}
+        <button onClick={() => dispatch(targetUserSet(undefined))}>Back</button>
       </AppWrapper>
     )
   }

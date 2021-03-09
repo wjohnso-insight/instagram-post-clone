@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
 import User from './user'
 
-//TODO - [√] Refactor initial state to handle User[] as a field
-//TODO - [√] Add 'targetUser' field to initial state
+//TODO - [√] Add `Reusable Selector Function` for targetUser 
+
 const users : User[] = [ // TODO: [] get from API
     {
         id: 1,
@@ -32,4 +33,7 @@ const usersSlice = createSlice({
 })
 
 export const { targetUserSet } = usersSlice.actions
+
 export default usersSlice.reducer
+
+export const selectTargetUser = (state: RootState) => state.users.targetUser //* Reusable Selector Function
