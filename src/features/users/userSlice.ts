@@ -1,15 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import User from './user'
 
-/** 
-    * TODO: 
-        *[] Return an array of users   
- */
-
-const initialState : User[] = [ // TODO: [] get from API
+//TODO - [] Refactor initial state to handle User[] as a field
+//TODO - [] Add 'targetUser' field to initial state
+const users : User[] = [ // TODO: [] get from API
     {
         id: 1,
-        userName: 'wjohnsto'
+        userName: 'wjohnsto',
     },
     {
         id: 2,
@@ -17,10 +14,22 @@ const initialState : User[] = [ // TODO: [] get from API
     }
 ]
 
+let targetUser: any;
+
+const initialState = {
+    users,
+    targetUser
+}
+
 const usersSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {}
+    reducers: {
+        targetUserSelected(state,action){
+            const { userId } = action.payload //* passed in at component level; component level state object
+            state.targetUser = state.users.find(user => user.id === userId)
+        }
+    }
 })
 
 export default usersSlice.reducer
