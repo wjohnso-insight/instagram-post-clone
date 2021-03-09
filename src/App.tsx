@@ -28,8 +28,6 @@ const UserText = styled.button`
     cursor: pointer;
   }
 `
-//TODO - [√] Update conditional render based on selectTargetUser Reusable Selector Function
-//TODO - [√] Refactor `BackButton` to dispatch `setTargetUser` to undefined 
 
 export default function App(): ReactElement {
   // const [ targetUser, setTargetUser ] = useState<String | undefined>();

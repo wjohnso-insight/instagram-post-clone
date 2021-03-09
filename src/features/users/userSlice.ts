@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import User from './user'
 
-//TODO - [√] Add `Reusable Selector Function` for targetUser 
+//! Next Task - Refactor to get users from API call
 
-const users : User[] = [ // TODO: [] get from API
+const users : User[] = [
     {
         id: 1,
         userName: 'wjohnsto',
