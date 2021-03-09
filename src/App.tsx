@@ -2,9 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from './app/hooks'
-import { RootState } from './app/store'
-
-import { targetUserSet, selectTargetUser } from './features/users/userSlice'
+import { targetUserSet, selectTargetUser, selectAllUsers } from './features/users/userSlice'
 
 const AppWrapper = styled.div`
   //* iPhone 11 Max Aspect Ratio
@@ -20,36 +18,43 @@ const SelectUser = styled.div`
   align-items: center;
   flex-direction: column;
 `
-const UserText = styled.button`
+const UserText = styled.span`
   margin: 10px;
   font-size: 1.25rem;
   font-weight: 700;
+  border: solid thin black;
+  padding: 10px;
   &:hover{
     cursor: pointer;
   }
 `
 
 export default function App(): ReactElement {
-  // const [ targetUser, setTargetUser ] = useState<String | undefined>();
+  //* REMEBER => onClick={() => dispatch(targetUserSet(user))} 
 
   //* Typed Hooks
-  const users = useAppSelector((state: RootState) => state.users); //* Typeof User[] is inferred by TS
+  const users = useAppSelector(selectAllUsers); //* Typeof User[] is inferred by TS
   const targetUser = useAppSelector(selectTargetUser);
   const dispatch = useAppDispatch();
+  let usersList;
 
-  const usersList = users.users.map(user => (
-    <UserText 
-      key={user.id}
-      // onClick={() => setTargetUser(user.userName)}
-      onClick={() => dispatch(targetUserSet(user))}
-      >{user.userName}</UserText>
-  ))
-  
+  if(users){
+    usersList = users.map(user => (
+      <UserText
+        role="button" 
+        key={user.id}
+        onClick={() => dispatch(targetUserSet(user))}
+      >{user.name}</UserText>
+    ))
+  }else{
+    usersList = () => <p>Loading</p>
+  }
+
   if(!targetUser){
     return (
       <AppWrapper>
           <SelectUser>
-            <h1>Please select a user:</h1>
+            <h2>Please select a user:</h2>
             {usersList}
           </SelectUser>
       </AppWrapper>
@@ -57,7 +62,7 @@ export default function App(): ReactElement {
   }else{
     return(
       <AppWrapper>
-        {targetUser.userName}
+        {targetUser.name}
         <button onClick={() => dispatch(targetUserSet(undefined))}>Back</button>
       </AppWrapper>
     )

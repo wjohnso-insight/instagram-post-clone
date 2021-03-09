@@ -7,6 +7,10 @@ import { Provider } from 'react-redux';
 
 import './index.css'
 
+import { fetchUsers } from './features/users/userSlice'
+
+store.dispatch(fetchUsers())
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
