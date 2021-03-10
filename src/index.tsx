@@ -8,8 +8,10 @@ import { Provider } from 'react-redux';
 import './index.css'
 
 import { fetchUsers } from './features/users/userSlice'
+import { fetchPosts } from './features/posts/postsSlice'
 
 store.dispatch(fetchUsers())
+store.dispatch(fetchPosts())
 
 ReactDOM.render(
   <React.StrictMode>

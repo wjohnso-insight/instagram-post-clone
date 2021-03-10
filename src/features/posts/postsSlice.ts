@@ -1,13 +1,18 @@
 //! postsSlice - Global State for `post` objects
 //TODO: [√] Define `post` interface
 //TODO: [√] Define 'dummy' initial posts for passing and rendering
-//TODO: [] Refactor to get posts from API
+//TODO: [√] Refactor to get posts from API
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { Post } from './Post'
 import { RootState } from '../../app/store'
+import axios from 'axios'
 
-let posts: Post[] | undefined = [
+const postsUrl = 'http://jsonplaceholder.typicode.com/posts'
+
+let posts: Post[] | undefined;
+
+let dummyPosts: Post[] | undefined = [ 
     {
         userId: 1,
         id: 1,
@@ -28,6 +33,11 @@ let posts: Post[] | undefined = [
       }
 ]
 
+export const fetchPosts : any = createAsyncThunk('posts/fetchPosts', async () => {
+    const response = await axios.get(postsUrl)
+    return response.data
+})
+
 const initialState = {
     posts,
 }
@@ -35,7 +45,12 @@ const initialState = {
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers:{}
+    reducers:{},
+    extraReducers:{
+        [fetchPosts.fulfilled]: (state, action) => {
+            state.posts = action.payload
+        }
+    }
 })
 
 export default postsSlice.reducer

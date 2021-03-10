@@ -22,7 +22,7 @@ export default function UserPosts(): ReactElement {
 
     //TODO: [√] Map over userPosts and return a <PostView post={post} /> component
     //TODO: [] Refactor to @acemarke style render
-    const userPosts = posts.filter(post => post.userId === targetUser?.id);
+    const userPosts = posts?.filter(post => post.userId === targetUser?.id);
 
     if(targetUser){
         return (
