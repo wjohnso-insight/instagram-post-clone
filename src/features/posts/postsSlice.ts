@@ -1,6 +1,7 @@
 //! postsSlice - Global State for `post` objects
 //TODO: [√] Define `post` interface
 //TODO: [√] Define 'dummy' initial posts for passing and rendering
+//TODO: [] Refactor to get posts from API
 
 import { createSlice } from '@reduxjs/toolkit'
 import { Post } from './Post'
