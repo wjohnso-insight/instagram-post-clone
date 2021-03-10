@@ -1,5 +1,5 @@
 //! <App>
-//TODO: [] Refactor `targetUser` view from inline to <UserPosts> 
+//TODO: [√] Refactor `targetUser` view from inline to <UserPosts> 
 //* <UserPosts> should get `targetUser` & targetUsers' `posts` from global state
 
 import React, { ReactElement } from 'react'
@@ -7,6 +7,8 @@ import styled from 'styled-components'
 
 import { useAppSelector, useAppDispatch } from './app/hooks'
 import { targetUserSet, selectTargetUser, selectAllUsers } from './features/users/userSlice'
+
+import UserPosts from './features/users/UserPosts'
 
 const AppWrapper = styled.div`
   //* iPhone 11 Max Aspect Ratio
@@ -34,40 +36,50 @@ const UserText = styled.span`
 `
 
 export default function App(): ReactElement {
-  //* REMEBER => onClick={() => dispatch(targetUserSet(user))} 
 
   //* Typed Hooks
   const users = useAppSelector(selectAllUsers); //* Typeof User[] is inferred by TS
   const targetUser = useAppSelector(selectTargetUser);
   const dispatch = useAppDispatch();
-  let usersList;
-
-  if(users){
-    usersList = users.map(user => (
-      <UserText
-        role="button" 
-        key={user.id}
-        onClick={() => dispatch(targetUserSet(user))}
-      >{user.name}</UserText>
-    ))
-  }else{
-    usersList = () => <p>Loading</p>
-  }
+  
+  /*
+    * Tried to do the @acemarke render below, but it was throwing a `no functions` as react 
+    * component errors. 
+    TODO: [] Refactor to @acemark style render
+  */
+  // let usersList;
+  // if(users){
+  //   usersList = users.map(user => (
+  //     <UserText
+  //       role="button" 
+  //       key={user.id}
+  //       onClick={() => dispatch(targetUserSet(user))}
+  //     >{user.name}</UserText>
+  //   ))
+  // }else{
+  //   usersList = () => (<p>Loading</p>)
+  // }
 
   if(!targetUser){
     return (
       <AppWrapper>
           <SelectUser>
             <h2>Please select a user:</h2>
-            {usersList}
+            {/* {usersList} */} 
+            {(users ? users.map(user => (
+              <UserText 
+                role="button"
+                key={user.id}
+                onClick={() => dispatch(targetUserSet(user))}
+              >{user.name}</UserText>
+            )): <p>Loading</p>)}
           </SelectUser>
       </AppWrapper>
     )
   }else{
     return(
       <AppWrapper>
-        {targetUser.name}
-        <button onClick={() => dispatch(targetUserSet(undefined))}>Back</button>
+        <UserPosts />
       </AppWrapper>
     )
   }

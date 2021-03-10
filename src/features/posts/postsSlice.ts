@@ -3,7 +3,8 @@
 //TODO: [√] Define 'dummy' initial posts for passing and rendering
 
 import { createSlice } from '@reduxjs/toolkit'
-import { Post } from './post'
+import { Post } from './Post'
+import { RootState } from '../../app/store'
 
 let posts: Post[] | undefined = [
     {
@@ -37,3 +38,6 @@ const postsSlice = createSlice({
 })
 
 export default postsSlice.reducer
+
+//* Reusable Selector Functions
+export const selectAllPosts = (state: RootState) => state.posts.posts
