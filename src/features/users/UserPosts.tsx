@@ -18,7 +18,7 @@ export default function UserPosts(): ReactElement {
 
     if(targetUser){
         return (
-                <div style={{"backgroundColor": "red", "overflow": "scroll"}}>
+                <div>
                 {(userPosts && userPosts.length > 0 ? userPosts.map(post => 
                     <PostView key={post.id} post={post} />): <span>This user has no posts.</span>)} 
                 </div>

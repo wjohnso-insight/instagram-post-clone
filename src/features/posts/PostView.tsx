@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import ControlsCaption from '../../app/layout/contols/ControlsCaption'
+import ControlsLikes from '../../app/layout/contols/ControlsLikes'
+import ControlsPost from '../../app/layout/contols/ControlsPost'
 import { Post } from './Post'
 
-import UserBanner from '../../app/layout/userbanner/UserBanner'
 
 //TODO: [√] Render `post` 
-
+//TODO: [] Add `Controls` Components
 interface Props {
     post : Post
 }
@@ -28,18 +30,21 @@ const ImageArea = styled.section`
 `
 const ControlsArea = styled.section`
     width: 100%;
-    height: 200px;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 `
 
 export default function PostView({post}: Props): ReactElement {
+
+    const { id, userId } = post;
     return (
         <Wrapper>
             <ImageArea>
                 Image
             </ImageArea>
             <ControlsArea>
-                Controls
+                <ControlsPost />
+                <ControlsLikes />
+                <ControlsCaption userId={userId} postId={id} />
             </ControlsArea>
         </Wrapper>
     )
