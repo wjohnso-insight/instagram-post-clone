@@ -8,13 +8,18 @@ import styled from 'styled-components'
 import { useAppSelector, useAppDispatch } from './app/hooks'
 import { targetUserSet, selectTargetUser, selectAllUsers } from './features/users/userSlice'
 
+import Banner from './app/layout/Banner'
+
+
+import ProfilePhoto, { Types } from './app/layout/ProfilePhoto'
+import UserBanner from './app/layout/userbanner/UserBanner'
 import UserPosts from './features/users/UserPosts'
 
 const AppWrapper = styled.div`
   //* iPhone 11 Max Aspect Ratio
   height: 896px;
   width: 414px;
-  background-color: lightpink;
+  background: black;
 `
 const SelectUser = styled.div`
   min-height: 100%;
@@ -64,14 +69,18 @@ export default function App(): ReactElement {
     return (
       <AppWrapper>
           <SelectUser>
+            <Banner fontSize={'5rem'}/>
             <h2>Please select a user:</h2>
             {/* {usersList} */} 
             {(users ? users.map(user => (
-              <UserText 
-                role="button"
-                key={user.id}
-                onClick={() => dispatch(targetUserSet(user))}
-              >{user.name}</UserText>
+              <>
+                <ProfilePhoto userId={user.id} type={ Types.small }/>
+                <UserText 
+                  role="button"
+                  key={user.id}
+                  onClick={() => dispatch(targetUserSet(user))}
+                >{user.name}</UserText>
+              </>
             )): <p>Loading</p>)}
           </SelectUser>
       </AppWrapper>
@@ -79,7 +88,9 @@ export default function App(): ReactElement {
   }else{
     return(
       <AppWrapper>
-        <UserPosts />
+        <UserBanner>
+          <UserPosts />
+        </UserBanner>
       </AppWrapper>
     )
   }
