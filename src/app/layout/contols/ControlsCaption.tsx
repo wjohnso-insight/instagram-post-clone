@@ -25,6 +25,9 @@ const MoreText = styled.span<{ visibility: string}>`
     margin-left: 5px;
     color: #606060;
     font-size: 1.1rem;
+    &:hover{
+        cursor: pointer;
+    }
 `
 
 export default function ControlsCaption({userId, postId}: Props): ReactElement {

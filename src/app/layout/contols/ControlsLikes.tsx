@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { useAppSelector } from '../../hooks'
 
 import ProfilePhoto, { Types }  from '../../layout/ProfilePhoto'
 
 interface Props {
-    
+    postId: number
 }
 
 const Wrapper=styled.section`
@@ -26,21 +27,27 @@ const Info=styled.section`
     align-items: center;
     flex-grow: 1;
 `
+export default function ControlsLikes({ postId }: Props): ReactElement {
 
-const BoldText=styled.span`
-    margin-left: 5px;
-    margin-right: 5px;
-    font-weight: 700;
-`
+    const  [ targetPost ] = useAppSelector(state => state.posts.posts?.filter(post => post.id === postId))
+   
+    const likes = targetPost.likes;
 
-export default function ControlsLikes({}: Props): ReactElement {
+    const likesText = () => {
+        if(likes && likes.length !== 0){
+            return `Liked by ${likes[0].username} and ${likes.length} others`
+        }else{
+            return 'No likes yet.'
+        }
+    }
+    
     return (
         <Wrapper>
             <UserPhoto>
                 <ProfilePhoto type={Types.small} userId={2} /> 
             </UserPhoto>
             <Info>
-                Liked by <BoldText>{`{ user }`}</BoldText> and <BoldText>{` {post.likes.count} `}</BoldText>
+                {likesText()}
             </Info>
         </Wrapper>
     )
