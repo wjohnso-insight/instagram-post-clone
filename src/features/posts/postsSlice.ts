@@ -6,7 +6,7 @@
 //TODO: [] Define `posts/likeAdded` reducer
 //TODO: [] Persist state with local storage 
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { Post } from './Post'
 import User from '../users/user'
 import { RootState } from '../../app/store'
@@ -28,13 +28,37 @@ const initialState = {
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers:{},
+    reducers:{
+        likeAdded:{
+            reducer: (state,action: PayloadAction<any>) =>{
+                const { targetUser, targetPost:{id} } = action.payload;
+                const [ updatePost ] = state.posts.filter(post => post.id === id);
+                updatePost.likes.push(targetUser)
+            },
+            prepare: (targetUser : User,targetPost: Post) => {
+               return { payload: { targetUser,targetPost } }
+            }
+        },
+        likeRemoved:{
+            reducer: (state, action: PayloadAction<any>) =>{
+                const { targetUser, targetPost:{id} } = action.payload;
+                const [ updatePost ] = state.posts.filter(post => post.id === id);
+                const targetLikeIndex = updatePost.likes.findIndex(like => like.username === targetUser.username)
+                updatePost.likes.splice(targetLikeIndex,1)
+            },
+            prepare: (targetUser: User,targetPost: Post) => {
+                return { payload: { targetUser, targetPost } }
+            }
+        }
+    },
     extraReducers:{
         [fetchPosts.fulfilled]: (state, action) => {
             state.posts = action.payload.map((post: { likes: User[] })  => ({...post, likes: []}))
         }
     }
 })
+
+export const { likeAdded, likeRemoved } = postsSlice.actions
 
 export default postsSlice.reducer
 
