@@ -11,7 +11,7 @@ import User from './user'
 const usersUrl = 'https://jsonplaceholder.typicode.com/users'
 
 let targetUser: User | undefined;
-let users: User[] | undefined;
+let users: User[] = [];
 
 const initialState = {
     users,

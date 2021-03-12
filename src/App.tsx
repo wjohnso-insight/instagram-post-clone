@@ -1,5 +1,6 @@
 //! <App>
-//TODO: [√] Refactor `targetUser` view from inline to <UserPosts> 
+//TODO: [√] Refactor `targetUser` view from inline to <UserPosts>
+//TODO: [] Refactor `!targetUser` render to <LandingScreen> 
 //* <UserPosts> should get `targetUser` & targetUsers' `posts` from global state
 
 import React, { ReactElement } from 'react'
@@ -9,7 +10,7 @@ import { useAppSelector, useAppDispatch } from './app/hooks'
 import { targetUserSet, selectTargetUser, selectAllUsers } from './features/users/userSlice'
 
 import Banner from './app/layout/Banner'
-
+import LandingScreen from './app/layout/landingscreen/LandingScreen'
 
 import ProfilePhoto, { Types } from './app/layout/ProfilePhoto'
 import UserBanner from './app/layout/userbanner/UserBanner'
@@ -43,10 +44,7 @@ const UserText = styled.span`
 export default function App(): ReactElement {
 
   //* Typed Hooks
-  const users = useAppSelector(selectAllUsers); //* Typeof User[] is inferred by TS
   const targetUser = useAppSelector(selectTargetUser);
-  const dispatch = useAppDispatch();
-  
   /*
     * Tried to do the @acemarke render below, but it was throwing a `no functions` as react 
     * component errors. 
@@ -68,10 +66,9 @@ export default function App(): ReactElement {
   if(!targetUser){
     return (
       <AppWrapper>
-          <SelectUser>
             <Banner fontSize={'5rem'}/>
-            <h2>Please select a user:</h2>
-            {/* {usersList} */} 
+            <LandingScreen />
+            {/* <h2>Please select a user:</h2>
             {(users ? users.map(user => (
               <>
                 <ProfilePhoto userId={user.id} type={ Types.small }/>
@@ -81,8 +78,7 @@ export default function App(): ReactElement {
                   onClick={() => dispatch(targetUserSet(user))}
                 >{user.name}</UserText>
               </>
-            )): <p>Loading</p>)}
-          </SelectUser>
+            )): <p>Loading</p>)} */}
       </AppWrapper>
     )
   }else{

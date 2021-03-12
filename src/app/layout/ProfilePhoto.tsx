@@ -15,11 +15,9 @@ interface Props {
 const Wrapper = styled.div<{ size: string}>`
     height: ${(props) => props.size };
     width: ${(props) => props.size};
-    background-color: lightgrey;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
     clip-path: circle(50% at 50% 50%);
 
     background-image: url('https://picsum.photos/200/300');

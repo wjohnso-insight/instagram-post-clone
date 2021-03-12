@@ -18,6 +18,7 @@ const UserPhoto=styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 10px;
 `
 const Info=styled.section`
     /* background-color: lightgray; */
