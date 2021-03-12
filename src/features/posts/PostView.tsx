@@ -42,8 +42,8 @@ export default function PostView({post}: Props): ReactElement {
                 Image
             </ImageArea>
             <ControlsArea>
-                <ControlsPost />
-                <ControlsLikes />
+                <ControlsPost targetPost={post}/>
+                <ControlsLikes postId={id}/>
                 <ControlsCaption userId={userId} postId={id} />
             </ControlsArea>
         </Wrapper>

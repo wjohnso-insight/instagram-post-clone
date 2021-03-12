@@ -1,11 +1,15 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { selectTargetUser } from '../../../features/users/userSlice'
+import { likeAdded, likeRemoved } from '../../../features/posts/postsSlice'
+import { Post } from '../../../features/posts/Post'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment, faPaperPlane, faBookmark } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-    
+   targetPost: Post
 }
 
 const Wrapper=styled.section`
@@ -34,12 +38,35 @@ const Icon=styled.span`
     margin-right: 5px;
 `
 
-export default function ControlsPost({}: Props): ReactElement {
+export default function ControlsPost({ targetPost }: Props): ReactElement {
+
+    const targetUser = useAppSelector(selectTargetUser);
+    
+    const didLike = useAppSelector(state =>{
+        if(targetUser){
+           return state.posts.posts
+            .filter(post => post.id === targetPost.id)[0].likes.includes(targetUser)
+        }
+    })
+
+    const dispatch = useAppDispatch();
+    
+    const handleLike = () => {
+        if(targetUser && !didLike){
+          dispatch(likeAdded(targetUser,targetPost))
+        }else if(targetUser && didLike){
+          dispatch(likeRemoved(targetUser,targetPost))
+        }
+    }
+
     return (
         <Wrapper>
             <Icons>
-                <Icon>
-                    <FontAwesomeIcon icon={faHeart} size={'2x'} />
+                <Icon onClick={() => handleLike()}>
+                    <FontAwesomeIcon 
+                        icon={faHeart} 
+                        size={'2x'} 
+                        color={(didLike ? "red" : "white")}/>
                 </Icon>
                 <Icon>
                     <FontAwesomeIcon icon={faComment} size={'2x'} />
