@@ -66,7 +66,9 @@ export default function ControlsPost({ targetPost }: Props): ReactElement {
                     <FontAwesomeIcon 
                         icon={faHeart} 
                         size={'2x'} 
-                        color={(didLike ? "red" : "white")}/>
+                        color={(didLike ? "red" : "white")}
+                        role="button"
+                        />
                 </Icon>
                 <Icon>
                     <FontAwesomeIcon icon={faComment} size={'2x'} />

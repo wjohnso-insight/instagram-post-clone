@@ -14,6 +14,7 @@ const Wrapper = styled.section`
     height: 73px;
     display: flex;
     align-items: center;
+    margin-left: 10px;
 `
 const PhotoInfo = styled.section`
     display: flex;
