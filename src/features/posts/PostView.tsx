@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ControlsCaption from '../../app/layout/contols/ControlsCaption'
 import ControlsLikes from '../../app/layout/contols/ControlsLikes'
 import ControlsPost from '../../app/layout/contols/ControlsPost'
+import PostImage from '../../app/layout/PostImage'
 import { Post } from './Post'
 
 
@@ -26,7 +27,6 @@ const Wrapper = styled.section`
 const ImageArea = styled.section`
     width: 100%;
     height: 585px;
-    background-color: white; 
 `
 const ControlsArea = styled.section`
     width: 100%;
@@ -39,7 +39,7 @@ export default function PostView({post}: Props): ReactElement {
     return (
         <Wrapper>
             <ImageArea>
-                Image
+                <PostImage postId={id}/>
             </ImageArea>
             <ControlsArea>
                 <ControlsPost targetPost={post}/>
