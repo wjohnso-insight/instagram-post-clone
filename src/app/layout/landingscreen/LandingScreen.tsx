@@ -33,9 +33,6 @@ export default function LandingScreen({}: Props): ReactElement {
 
     const users = useAppSelector(selectAllUsers);
     const dispatch = useAppDispatch();
-    const { REACT_APP_TEST_KEY } = process.env;
-
-    console.log(REACT_APP_TEST_KEY);
     return (
         <Wrapper>
             <h3>Select a User</h3>
