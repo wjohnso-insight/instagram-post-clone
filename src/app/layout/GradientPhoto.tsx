@@ -46,7 +46,7 @@ export default function GradientPhoto({ userId }: Props): ReactElement {
             <Photo>
                 <ProfilePhoto userId={userId} type={Types.large}/>
             </Photo>
-            <UserName>{user?.name}</UserName>
+            <UserName>@{user?.username.toLocaleLowerCase()}</UserName>
         </Wrapper>
     )
 }

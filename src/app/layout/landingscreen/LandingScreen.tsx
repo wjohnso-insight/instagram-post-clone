@@ -10,20 +10,14 @@ interface Props {}
 
 const Wrapper=styled.section`
     height: 100%;
-    /* padding-left: 20px; */
-    /* padding-right: 20px; */
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
-    /* background-color: lightpink; */
 `
 const Users=styled.section`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
 `
 
 const UsersChild=styled.div`
